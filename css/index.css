@@ -185,9 +185,11 @@ body {
 .category,
 .pages ul {
   display: none;
+  z-index: 1;
 }
 .menu .small-menu .pages:hover ul {
   display: block;
+
 }
 .menu .categories:hover ul {
   display: block;
@@ -195,9 +197,9 @@ body {
 .categories > ul {
   position: absolute;
   top: 100%;
-  background-color: black;
+  background-color: white;
   color: gray;
-  width: 178.5px;
+  width: 60.5%;
 }
 .categories ul > li {
   display: flex;
@@ -239,11 +241,14 @@ body {
   display: grid;
   grid-template-columns: 2fr 1fr;
   column-gap: 30px;
+  position: relative;
 }
 .rigth-part {
   display: grid;
   grid-template-rows: 1fr 1fr;
   row-gap: 30px;
+
+  
 }
 .left-part {
   position: relative;
@@ -256,6 +261,8 @@ body {
 }
 .left-part > img {
   object-fit: cover;
+  position: relative;
+  
 }
 .rigth-small-part > img{
   width: 100%;
@@ -416,4 +423,76 @@ font-size: 2rem;
 }
 .card .card-disc:hover{
   background-color: #ffd333;
+}
+
+@media only screen and (max-width: 900px) {
+  .hero-section{
+    grid-template-columns: 1fr;
+    width:fit-content;
+    height: fit-content;
+    position: relative;
+    row-gap: 30px;
+
+  }
+  .hero-section img{
+    object-fit: cover;
+    height: 200px;
+    width: 450px;
+  }
+  .over-left-part h1{
+    font-size: 2rem;
+    }
+    .over-left-part p{
+      font-size: 0.7rem;
+    }
+    .over-left-part > button{
+      width: 130px;
+      height: 40px;
+      background-color: #ffd333;
+      color:black;
+      border:1px solid transparent;
+      font-size: 1rem;
+    }
+    .over-left-part{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+  .categories-section{
+    grid-template-columns: 1fr;
+    width: fit-content;
+    margin-left: 48px;
+  }
+  .features{
+    grid-template-columns: 1fr;
+    position: relative;
+    height: 300px;
+    margin-top: 50px;
+  }
+
+  .second-nav .logo > span{
+    font-size :2rem;
+    display: inline;
+  }
+  .search,.first-nav-rigth > div,.icons,  .small-menu{
+    display: none;
+  }
+  
+  .first-nav-left {
+    padding-left: 90px;
+  }
+  .categories{
+    width: 450px;
+  }
+  .category{
+    width: 450px;
+  }
+  
 }
