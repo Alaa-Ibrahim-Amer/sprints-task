@@ -235,7 +235,7 @@ body {
 }
 
 .hero-section {
-  width: 1400px;
+  max-width: 1400px;
   height: 460px;
   margin-top: 50px;
   display: grid;
@@ -369,7 +369,7 @@ font-size: 2rem;
 .above-categories h1::after{
   position: absolute;
     content: "";
-    width: 100%;
+    width: 85%;
     top: 50%;
     left: 210px;
     border-top: 1px dashed #bec5cb;
