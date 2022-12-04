@@ -3,7 +3,7 @@ const getShipping = () => {
 };
 
 const getSubTotal = () => {
-  return products.map((p) => p.price * p.quantity).reduce((a, e) => (a += e));
+  return products.map((p) => p.price * p.quantity).reduce((a, e) => (a += e),0);
 };
 
 const getTotal = () => getShipping() + getSubTotal();
@@ -17,11 +17,13 @@ const incQuantity = (i) => {
   renderHTML();
 };
 const remove = (i) => {
-  products.splice(i, 1);
+  products.splice(i,1);
   renderHTML();
 };
 
 const renderHTML = () => {
+  
+  
   document.getElementById("products").innerHTML = "";
   products.forEach((p, i) => {
     document.getElementById("products").innerHTML += getProductHTMLRow(p, i);
@@ -29,7 +31,12 @@ const renderHTML = () => {
   document.getElementById("shipping").innerHTML = `$${getShipping()}`;
   document.getElementById("sub-total").innerHTML = `$${getSubTotal()}`;
   document.getElementById("total").innerHTML = `$${getTotal()}`;
+  renderLocalStorage();
+  
 };
+const renderLocalStorage = () =>{
+  localStorage.setItem("products", JSON.stringify(products));
+}
 
 const getProductHTMLRow = (p, i) => {
   return `
@@ -41,15 +48,15 @@ const getProductHTMLRow = (p, i) => {
     <td class="align-middle">
         <div class="input-group quantity mx-auto" style="width: 100px;">
             <div class="input-group-btn">
-                <button type="button" class="decBtn btn btn-sm btn-primary btn-minus" onclick="decQuantity(${i})">
+                <button type="button" class="btn btn-sm btn-primary btn-minus" onclick="decQuantity(${i})">
                 <i class="fa fa-minus"></i>
                 </button>
             </div>
-            <input type="text" class="quantityVal form-control form-control-sm bg-secondary border-0 text-center" value="${
+            <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="${
               p.quantity
             }">
             <div class="input-group-btn">
-                <button type="button" class="incBtn btn btn-sm btn-primary btn-plus" onclick="incQuantity(${i})">
+                <button type="button" class="btn btn-sm btn-primary btn-plus" onclick="incQuantity(${i})">
                     <i class="fa fa-plus"></i>
                 </button>
             </div>
