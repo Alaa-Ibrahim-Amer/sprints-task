@@ -66,7 +66,7 @@ class orderDetails {
       <td class="align-middle">
           <div class="input-group quantity mx-auto" style="width: 100px;">
               <div class="input-group-btn">
-                  <button type="button" class="btn btn-sm btn-primary btn-minus" onclick=""order.deleteProduct(${this.product.id});order.saveChanges();order.render();">
+                  <button type="button" class="btn btn-sm btn-primary btn-minus" onclick="order.deleteProduct(${this.product.id});order.saveChanges();order.render();">
                   <i class="fa fa-minus"></i>
                   </button>
               </div>
@@ -182,8 +182,6 @@ class Order {
     this.renderTotalCard();
     this.renderOrderDetails();
   }
- 
-
   saveChanges(){
     const products = [];
     this.orderDetails.forEach((d) => {
@@ -193,6 +191,9 @@ class Order {
     });
     localStorage.setItem("products", JSON.stringify(products));
   }
+  addOrder(){
+    return JSON.stringify({"order_details":this.orderDetails,"sub_total_price":this.subTotal,"total_price":this.total,"shipping":this.shipping});
+ }
 }
 
 
@@ -201,6 +202,9 @@ const products = JSON.parse(localStorage.getItem("products") ?? "[]");
 products.forEach((x) => {
   order.addProduct(new product(x));
 });
-debugger
 order.render();
-
+const saveOrder =(order)=>
+{
+  let orders = order.addOrder();
+  localStorage.setItem("Order",orders);
+};
