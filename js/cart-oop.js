@@ -132,31 +132,31 @@ class Order {
     
 
 
-  addProductById(id) {
-    let orderDetail = this.orderDetails.find((x) => x.product.id === id);
+  addProductById=(id) =>{
+    let orderDetail = this.orderDetails.find((x) => x.product.id == id);
     if (orderDetail) {
       orderDetail.incQuantity(1);
     }
     return orderDetail;
   }
 
-  addProduct(product){
+  addProduct=(product)=>{
     let orderDetail = this.addProductById(product.id);
     if (!orderDetail) {
-      const ids = this.orderDetails.map((x) => x.id);
-      const maxId = Math.max(...(ids.length > 0 ? ids : [0]));
+      //const ids = this.orderDetails.map((x) => x.id);
+      //const maxId = Math.max(...(ids.length > 0 ? ids : [0]));
       orderDetail = new orderDetails(product);
-      orderDetail.id = maxId + 1;
+      //orderDetail.id = maxId + 1;
       this.orderDetails.push(orderDetail);
     }
   }
    
   removeDetail = (id) => {
-    const index = this.orderDetails.findIndex((x) => x.id === id);
+    const index = this.orderDetails.findIndex((x) => x.id == id);
     this.orderDetails.splice(index, 1);
   };
 
-  deleteProduct(id) {
+  deleteProduct=(id)=> {
     let orderDetail = this.orderDetails.find((x) => x.product.id == id);
     if (orderDetail) {
       if (orderDetail.quantity == 1) this.removeDetail(orderDetail.id);
@@ -192,9 +192,12 @@ class Order {
     localStorage.setItem("products", JSON.stringify(products));
   }
   addOrder(){
-    return JSON.stringify({"order_details":this.orderDetails,"sub_total_price":this.subTotal,"total_price":this.total,"shipping":this.shipping});
+    let orders = JSON.stringify({"order_details":this.orderDetails,"sub_total_price":this.subTotal,"total_price":this.total,"shipping":this.shipping});
+    localStorage.setItem("Order",orders);
+    return orders
  }
 }
+
 
 
 let order = new Order();
@@ -203,8 +206,4 @@ products.forEach((x) => {
   order.addProduct(new product(x));
 });
 order.render();
-const saveOrder =(order)=>
-{
-  let orders = order.addOrder();
-  localStorage.setItem("Order",orders);
-};
+

@@ -1,46 +1,53 @@
+const localOrder = JSON.parse(localStorage.getItem("Order") ?? "[]");
+const details=[];
+ localOrder.order_details.forEach(element => {
+    details.push({"product_id":element.id,"price": Number(element.price),
+    "qty": element.quantity});  
+});
 
-let data = {
-                "sub_total_price": 100.0,
-                "shipping": 10.0,
-                "total_price": 110.0,
-                "user_id": "6346ac23bb862e01fe4b6535",
-                "order_date": "2022-01-01",
-                "order_details": [
-                    {
-                        "product_id": "6346c15ea060efd7cae40589",
-                        "price": 25,
-                        "qty": 2
-                    },
-                    {
-                        "product_id": "6346c186a060efd7cae4058b",
-                        "price": 25,
-                        "qty": 2
-                    }
-                ],
-                "shipping_info": {
-                    "first_name": "Alaa",
-                    "last_name": "Ibrahim*****************************************************************",
-                    "email": "ramymibrahim@yahoo.com",
-                    "mobile_number": "01092812848",
-                    "address1": "20 M A",
-                    "address2": "",
-                    "country": "Egypt",
-                    "city": "Cairo",
-                    "state": "Zamalek",
-                    "zip_code": "11211"
-                }
-            };
+let login = async ()=>{
+    let login_re = await fetch("http://localhost:5000/api/users/login",{method: "POST",
+    headers: {'Content-Type': 'application/json'}, 
+    body: JSON.stringify({
+        "email":"ramymibrahim@yahoo.com",
+        "password":"123456"
+    })
+    })
+    const response_loged = await login_re.json();
+    let token = response_loged.token;
+    localStorage.setItem("token", JSON.stringify(token));
+    return response_loged.token;
+    };
+     login()
 
-const requestbody = fetch("http://localhost:5000/api/orders", {
+const postOrder = async ()=>{
+    let data = {
+        "sub_total_price": localOrder.sub_total_price,
+        "shipping": localOrder.shipping,
+        "total_price": localOrder.total_price,
+        "user_id": "6346ac23bb862e01fe4b6535",
+        "order_date": "2022-01-01",
+        "order_details": details,
+        "shipping_info": {
+            "first_name": document.getElementById("first_name").value,
+            "last_name": document.getElementById("last_name").value,
+            "email": document.getElementById("email").value,
+            "mobile_number": document.getElementById("mobile_number").value,
+            "address1": document.getElementById("address1").value,
+            "address2": document.getElementById("address2").value,
+            "country": document.getElementById("country").value,
+            "city": document.getElementById("city").value,
+            "state": document.getElementById("state").value,
+            "zip_code":document.getElementById("zip_code").value
+        }
+    };
+   let request= await fetch("http://localhost:5000/api/orders", {
   method: "POST",
-  headers: {'Content-Type': 'application/json', 'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM0NmFjMjNiYjg2MmUwMWZlNGI2NTM1IiwiZW1haWwiOiJyYW15bWlicmFoaW1AeWFob28uY29tIiwiaWF0IjoxNjcwNjQxOTY2LCJleHAiOjE2NzA2NDkxNjZ9.u_HmOR4c71ryX687-TboGdECBtgpl1r-q7XqQsQp3YU'}, 
+  headers: {"Content-Type": "application/json", "x-access-token": localStorage.getItem("token").replaceAll('"', '') }, 
   body: JSON.stringify(data)
 })
+let request1 =await request.json();
 
-const PpostOrder = async ()=>{
-    const response_order = await requestbody()
-    response_order.json().then(data => {
-        console.log(data);
-      });
+        console.log(request1);
+     
 };
-
