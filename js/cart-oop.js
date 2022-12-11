@@ -181,6 +181,7 @@ class Order {
   render(){
     this.renderTotalCard();
     this.renderOrderDetails();
+    this.addOrder();
   }
   saveChanges(){
     const products = [];
