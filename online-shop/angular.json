@@ -26,13 +26,9 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/style.css",
               "src/assets/lib/animate/animate.min.css",
               "src/assets/lib/owlcarousel/assets/owl.carousel.min.css",
-          
-              "src/assets/css/bootstrap.css",
-              "src/assets/css/bootstrap-grid.css",
-              "src/assets/css/bootstrap-reboot.css"
+              "src/assets/css/style.css"
 
             ],
             "scripts": [
@@ -100,8 +96,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "src/assets/css/style.css"
+              "src/styles.css"
             ],
             "scripts": []
           }
