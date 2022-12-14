@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { repeat } from 'rxjs';
 import { CartLine } from '../interfaces/cart-line';
 import { Product } from '../interfaces/product';
 
@@ -7,9 +8,17 @@ import { Product } from '../interfaces/product';
 })
 export class StorageService {
   constructor() {}
-
+  products:  Product[] = [];
   addProducts(product: Product, quantity: number) {
     //Add product to localstorage as flat products (array of products not cartLines)
+    while (quantity){
+      this.products = JSON.parse(localStorage.getItem("products") || "[]")
+      this.products.push(product);
+    localStorage.setItem("products", JSON.stringify(this.products));
+    quantity--;
+    }
+   
+
   }
 
   getCartLines(): CartLine[] {
@@ -17,3 +26,4 @@ export class StorageService {
     return [];
   }
 }
+

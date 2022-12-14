@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environment/environment';
 import { Product } from '../interfaces/product';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -10,7 +11,7 @@ export class ProductService {
   cartProducts: Product[] = [];
   Likes:number=0;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, ) {}
 
   getFeaturedProducts(): any {
     return this.httpClient.get(`${environment.apiUrl}products/getFeatured`);
