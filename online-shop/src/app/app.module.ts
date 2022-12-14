@@ -43,6 +43,7 @@ import { ProductsPaginationComponent } from './components/products-pagination/pr
     ProductsFilterComponent,
     ProductsShopComponent,
     ProductsPaginationComponent,
+
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
