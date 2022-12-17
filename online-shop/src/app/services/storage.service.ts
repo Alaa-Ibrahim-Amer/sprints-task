@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../interfaces/product';
 import { CartLine } from "src/app/classes/cartline-class.service";
 import { Cart } from '../classes/cart-class.service';
+import { Product } from '../classes/product-class.service';
 
-@Injectable({
+@Injectable({ 
   providedIn: 'root',
 })
 export class StorageService {
@@ -28,13 +28,12 @@ export class StorageService {
       if (ix >= 0) {
         cartLines[ix].quantity += 1;
       } else {
-        cartLines.push(
-          new CartLine(p)
-        );
+        cartLines.push( new CartLine(p,this));
       }
     });
     return cartLines;
   }
+
   save(cartLines: CartLine[]) {
     const products: Product[] = [];
     cartLines.forEach((c) => {
@@ -44,21 +43,25 @@ export class StorageService {
     });
     localStorage.setItem('products', JSON.stringify(products));
   }
+  saveOne(cartLine: CartLine) {
+    const products: Product[] = this.getProductsFromLocalStorage();
+      for (let i = 0; i < cartLine.quantity; i++) {
+        products.push(cartLine.product);
+      }
+  
+    localStorage.setItem('products', JSON.stringify(products));
+
+  }
 
   getQuantity(): number {
     const products = this.getProductsFromLocalStorage();
     return products?.length || 0;
   }
+
   getLikeno(): number{
-return JSON.parse(localStorage.getItem('likes') || '0');
-  }
+    return JSON.parse(localStorage.getItem('likes') || '0');
+      }
   updateLike(likes:number):any{
     localStorage.setItem('likes', JSON.stringify(likes));
   }
-  get_cart():any{
-    return JSON.parse(localStorage.getItem('order') || '0');
-  }
-update_cart(cart:Cart):any{
-  localStorage.setItem('order', JSON.stringify(cart));
-}
 }

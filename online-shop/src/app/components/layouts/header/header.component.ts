@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -11,11 +12,15 @@ import { StorageService } from 'src/app/services/storage.service';
 export class HeaderComponent {
   constructor(
     public storageService: StorageService,
-    public authService: AuthService
+    public authService: AuthService,
+    private router: Router
   ) {}
 
-  signOut(){
+  search: string = '';
+  productSearch() {
+    this.router.navigate([`/shop` ],{ queryParams: { search: this.search } });
+  }
+  signOut() {
     this.authService.signOut();
   }
-
 }

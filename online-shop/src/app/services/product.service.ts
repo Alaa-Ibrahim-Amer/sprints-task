@@ -9,7 +9,6 @@ import { StorageService } from './storage.service';
 })
 export class ProductService {
   cartProducts: Product[] = [];
-  Likes:number=0;
 
   constructor(private httpClient: HttpClient, private storageService: StorageService) {}
 

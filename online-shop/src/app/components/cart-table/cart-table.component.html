@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody class="align-middle" id="products">
-    <tr *ngFor="cart.get_lines();let line of cart.cartLines; let i = index;">
+    <tr *ngFor="let line of this.cart.cartLines; let i = index">
       <td class="align-middle">
         <img [src]="line.product.image" alt="" style="width: 50px" />
         {{ line.product.name }}
@@ -51,4 +51,3 @@
     </tr>
   </tbody>
 </table>
- 

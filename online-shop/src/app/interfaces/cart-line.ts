@@ -5,4 +5,3 @@ export interface CartLine {
   quantity: number;
   price: number;
 }
- 

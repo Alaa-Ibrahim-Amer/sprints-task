@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from '../services/storage.service';
-import { Product } from './productclass.service';
+import { Product } from './product-class.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +10,11 @@ export class CartLine {
     product: Product;
     quantity: number;
     id?:string;
-  
-    constructor(product: Product) {
+   
+    constructor(product: Product ,private storageService: StorageService) {
       this.product = product;
       this.quantity = 1;
       this.price = product.price;
-      this.id = "";
     }
    
     get total() {
@@ -24,10 +23,11 @@ export class CartLine {
    
     incQuantity = (q:number) => {
       this.quantity+=q;
-      
+      this.storageService.saveOne(this);
     };
     decQuantity = (q:number) => {
       if (this.quantity > q) this.quantity-=q;
+      this.storageService.saveOne(this);
     };
     
   }
