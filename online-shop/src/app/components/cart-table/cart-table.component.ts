@@ -10,7 +10,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class CartTableComponent { 
 
-  constructor(private storageService:StorageService,cart:Cart){
+  constructor(public storageService:StorageService,cart:Cart){
     this.cart = cart
   }
   @Input() cart: Cart ;

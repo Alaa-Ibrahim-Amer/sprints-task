@@ -23,11 +23,9 @@ export class CartLine {
    
     incQuantity = (q:number) => {
       this.quantity+=q;
-      this.storageService.saveOne(this);
     };
     decQuantity = (q:number) => {
       if (this.quantity > q) this.quantity-=q;
-      this.storageService.saveOne(this);
     };
     
   }

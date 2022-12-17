@@ -21,7 +21,7 @@
             <button
               type="button"
               class="decBtn btn btn-sm btn-primary btn-minus"
-              (click)="line.decQuantity(1)"
+              (click)="line.decQuantity(1);storageService.save(cart.cartLines);"
             >
               <i class="fa fa-minus"></i>
             </button>
@@ -35,7 +35,7 @@
             <button
               type="button"
               class="incBtn btn btn-sm btn-primary btn-plus"
-              (click)="line.incQuantity(1)"
+              (click)="line.incQuantity(1);storageService.save(cart.cartLines);"
             >
               <i class="fa fa-plus"></i>
             </button>

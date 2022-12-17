@@ -12,8 +12,6 @@ export class CartComponent {
   @Output() theCart: Cart;
   constructor(public storageService: StorageService) {
     this.theCart = new Cart(storageService);
-    this.cartLines = this.theCart.cartLines;
   }
-  cartLines: CartLine[] = [];
 
 }
