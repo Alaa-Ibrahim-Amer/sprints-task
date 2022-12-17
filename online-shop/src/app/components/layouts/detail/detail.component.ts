@@ -9,7 +9,7 @@ declare var $: any;
 
 @Component({
   selector: 'app-detail',
-  templateUrl: './detail.component.html',
+  templateUrl: './detail.component.html', 
   styleUrls: ['./detail.component.css'],
 })
 export class DetailComponent implements OnInit, AfterViewInit {
@@ -76,6 +76,7 @@ export class DetailComponent implements OnInit, AfterViewInit {
     this.sizes = this.sizeService.getSizes();
   }
 
+  // i can't reduce this code and use the cartline methods to avoid adding this quantity  to cart without click on the add to cart button 
   incQuantity() {
     this.quantity += 1;
   }
@@ -87,4 +88,3 @@ export class DetailComponent implements OnInit, AfterViewInit {
     this.storageService.addProducts(this.product, this.quantity);
   }
 }
-//

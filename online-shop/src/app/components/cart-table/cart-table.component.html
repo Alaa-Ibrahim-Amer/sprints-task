@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody class="align-middle" id="products">
-    <tr *ngFor="let line of cartLines; let i = index">
+    <tr *ngFor="let line of this.cart.cartLines; let i = index">
       <td class="align-middle">
         <img [src]="line.product.image" alt="" style="width: 50px" />
         {{ line.product.name }}
@@ -21,7 +21,7 @@
             <button
               type="button"
               class="decBtn btn btn-sm btn-primary btn-minus"
-              (click)="decQuantity(i)"
+              (click)="line.decQuantity(1);storageService.save(cart.cartLines);"
             >
               <i class="fa fa-minus"></i>
             </button>
@@ -35,7 +35,7 @@
             <button
               type="button"
               class="incBtn btn btn-sm btn-primary btn-plus"
-              (click)="incQuantity(i)"
+              (click)="line.incQuantity(1);storageService.save(cart.cartLines);"
             >
               <i class="fa fa-plus"></i>
             </button>
@@ -44,7 +44,7 @@
       </td>
       <td class="align-middle">{{ line.quantity * line.price | currency }}</td>
       <td class="align-middle">
-        <button class="btn btn-sm btn-danger" type="button" (click)="remove(i)">
+        <button class="btn btn-sm btn-danger" type="button" (click)="cart.remove(this.i)">
           <i class="fa fa-times"></i>
         </button>
       </td>
