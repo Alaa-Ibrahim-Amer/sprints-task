@@ -17,4 +17,5 @@ export class HeaderComponent {
   signOut(){
     this.authService.signOut();
   }
+
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CartLine } from 'src/app/interfaces/cart-line';
 import { StorageService } from 'src/app/services/storage.service';
-
+import { CartLine} from 'src/app/classes/cartline-class.service';
+import { Cart } from 'src/app/classes/cart-class.service';
 @Component({
   selector: 'app-cart-table',
   templateUrl: './cart-table.component.html',
@@ -9,25 +9,13 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class CartTableComponent {
 
-  constructor(private storageService:StorageService){
-
+  constructor(private storageService:StorageService,cart:Cart){
+    this.cart = cart;
+    this.cartLines= cart.cartLines;
   }
 
-  @Input() cartLines: CartLine[] = [];
+  cartLines: CartLine[] = [];
+  @Input() cart:Cart;
   @Output() limitAlert = new EventEmitter<string>();
 
-  incQuantity(i: number) {
-    this.cartLines[i].quantity += 1;
-    this.storageService.save(this.cartLines);
-  }
-
-  decQuantity(i: number) {
-    if (this.cartLines[i].quantity > 1) this.cartLines[i].quantity -= 1;
-    this.storageService.save(this.cartLines);
-  }
-
-  remove(i: number) {
-    this.cartLines.splice(i, 1);
-    this.storageService.save(this.cartLines);
-  }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CartLine } from '../interfaces/cart-line';
 import { Product } from '../interfaces/product';
+import { CartLine } from "src/app/classes/cartline-class.service";
+import { Cart } from '../classes/cart-class.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,11 +28,9 @@ export class StorageService {
       if (ix >= 0) {
         cartLines[ix].quantity += 1;
       } else {
-        cartLines.push({
-          price: p.price,
-          product: p,
-          quantity: 1,
-        });
+        cartLines.push(
+          new CartLine(p)
+        );
       }
     });
     return cartLines;
@@ -50,4 +49,16 @@ export class StorageService {
     const products = this.getProductsFromLocalStorage();
     return products?.length || 0;
   }
+  getLikeno(): number{
+return JSON.parse(localStorage.getItem('likes') || '0');
+  }
+  updateLike(likes:number):any{
+    localStorage.setItem('likes', JSON.stringify(likes));
+  }
+  get_cart():any{
+    return JSON.parse(localStorage.getItem('order') || '0');
+  }
+update_cart(cart:Cart):any{
+  localStorage.setItem('order', JSON.stringify(cart));
+}
 }

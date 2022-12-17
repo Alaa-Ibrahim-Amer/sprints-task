@@ -77,7 +77,7 @@ export class DetailComponent implements OnInit, AfterViewInit {
   }
 
   incQuantity() {
-    this.quantity += 1;
+    this.quantity += 1; 
   }
   decQuantity() {
     if (this.quantity > 1) this.quantity -= 1;

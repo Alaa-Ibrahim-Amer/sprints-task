@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { CartLine } from 'src/app/interfaces/cart-line';
-import { StorageService } from 'src/app/services/storage.service';
+import { Component ,Input } from '@angular/core';
+import { Cart } from 'src/app/classes/cart-class.service';
 
 @Component({
   selector: 'app-checkout',
@@ -8,23 +7,11 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent {
-  constructor(private storageService: StorageService) {
-    this.cartLines = storageService.getCartLines();
-  }
+ 
 
-  cartLines: CartLine[] = [];
+    constructor(cart: Cart){
+      this.thecart=cart;
+      }
+      @Input() thecart: Cart ;    
 
-  getTotal(): number {
-    return this.getShipping() + this.getSubTotal();
-  }
-  getSubTotal(): number {
-    return this.cartLines
-      .map((x) => x.price * x.quantity)
-      .reduce((a, v) => (a += v), 0);
-  }
-  getShipping(): number {
-    return (
-      this.cartLines.map((x) => x.quantity).reduce((a, v) => (a += v), 0) * 2
-    );
-  }
 }

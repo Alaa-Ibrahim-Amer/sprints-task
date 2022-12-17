@@ -11,8 +11,11 @@ import { StorageService } from 'src/app/services/storage.service';
 export class ProductComponent {
   @Input() product: Product = {} as Product;
 
-  constructor(private storageService: StorageService) {}
+  constructor(private storageService: StorageService,private productService:ProductService) {}
   addProductToCart() {
     this.storageService.addProducts(this.product, 1);
   }
+  incLike(){
+    this.productService.addLike();
+}
 }

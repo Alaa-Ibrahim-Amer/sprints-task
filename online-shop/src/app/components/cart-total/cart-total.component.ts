@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input} from '@angular/core';
+import { Cart } from 'src/app/classes/cart-class.service'
 
 @Component({
   selector: 'app-cart-total',
@@ -6,7 +7,10 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./cart-total.component.css'],
 })
 export class CartTotalComponent {
-  @Input() shipping: number = 0;
-  @Input() subTotal: number = 0;
-  @Input() total: number = 0;
+  constructor(cart: Cart){
+  this.thecart=cart;
+  }
+
+  @Input() thecart: Cart;
+ 
 }
