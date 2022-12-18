@@ -20,7 +20,7 @@ export class RegisterComponent {
       password: new FormControl('', [Validators.required]),
       password_confirm: new FormControl('', [Validators.required]),
     },
-    [Validation.match('password', 'password_confirm')]
+    [Validation.match('password', 'password_confirm')] 
   );
 
   get c() {

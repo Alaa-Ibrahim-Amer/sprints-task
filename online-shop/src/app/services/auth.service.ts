@@ -36,7 +36,9 @@ export class AuthService {
       this.getLoginData()?.last_name
     }`;
   }
-
+  getuserid() {
+    return `${this.getLoginData()?._id}`;
+  }
   signOut() {
     localStorage.removeItem('loginData');
     this.router.navigate(['/home']);

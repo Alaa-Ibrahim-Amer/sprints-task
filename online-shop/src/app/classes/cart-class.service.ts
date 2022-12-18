@@ -8,19 +8,28 @@ import { CartLine } from './cartline-class.service';
 })
 export class Cart {
   cartLines: CartLine[];
-  shipping_info?: ShippingInfo;
+  shipping_info?:ShippingInfo;
   paymentMethod?:string;
   SubTotal:number = 0;
   Shipping: number = 0;
   Total: number = 0; 
-  user_id?:number ;
+  user_id?:string;
   order_date: Date=new Date();
+  //to have the same format as the api :')
+  order_details?:any;
+  sub_total_price?: number;
+  shipping?: number;
+  total_price?: number;
 
   constructor(private storageService: StorageService ) {
     this.cartLines= storageService.getCartLines() ;
     this.SubTotal=this.get_subTotal();
     this.Shipping=this.get_shipping();
     this.Total=this.get_total();
+    this.order_details = this.cartLines;
+    this.shipping=this.Shipping;
+    this.sub_total_price=this.SubTotal;
+    this.total_price=this.Total;
   }
 
   get_subTotal() {
