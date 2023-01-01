@@ -13,8 +13,8 @@ function getProducts()
             'price' => (float) $arr[3],
             'discount' => (float) $arr[4],
             'rating' => (float) $arr[5],
-            'is_featured' => (bool) $arr[7],
             'rating_count' => (int) $arr[6],
+            'is_featured' => (bool) $arr[7],
             'is_recent' => (bool) $arr[8]
         ];
         array_push($products, $product);

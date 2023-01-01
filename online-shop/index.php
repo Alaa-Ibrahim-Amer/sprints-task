@@ -236,7 +236,7 @@ $categories = getCategories();
     <div class="row px-xl-5">
     <?php
     foreach ($products as $product) {
-        if (!$product['is_featured']) {
+        if ($product['is_recent']) {
             ?>
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
             <div class="product-item bg-light mb-4">
