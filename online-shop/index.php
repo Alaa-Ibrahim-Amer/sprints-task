@@ -1,4 +1,5 @@
 <?php
+define('BASE_PATH', './');
 require_once('./layouts/header.php');
 require_once('./logic/products.php');
 require_once('./logic/categories.php');
@@ -133,11 +134,11 @@ $categories = getCategories();
             <a class="text-decoration-none" href="products.php?category_id=<?= $category['id'] ?>">
                 <div class="cat-item d-flex align-items-center mb-4">
                     <div class="overflow-hidden" style="width: 100px; height: 100px">
-                        <img class="img-fluid" src="<?= $category['image'] ?>" alt="" />
+                        <img class="img-fluid" src="<?= $category['image_url'] ?>" alt="" />
                     </div>
                     <div class="flex-fill pl-3">
                         <h6><?= $category['name'] ?></h6>
-                        <small class="text-body">100 Products</small>
+                        <small class="text-body"><?= $category['product_count'] ?> Products</small>
                     </div>
                 </div>
             </a>
@@ -155,49 +156,15 @@ $categories = getCategories();
         <span class="bg-secondary pr-3">Featured Products</span>
     </h2>
     <div class="row px-xl-5">
-    <?php
-    foreach ($products as $product) {
-        if ($product['is_featured']) {
-            ?>
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <div class="product-item bg-light mb-4">
-                <div class="product-img position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="<?= $product['image'] ?>" alt="" />
-                    <div class="product-action">
-                        <a class="btn btn-outline-dark btn-square" href="products.php?product_id=<?= $product['id'] ?>"><i
-                                class="fa fa-shopping-cart"></i></a>
-                        <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
-                        <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
-                        <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-search"></i></a>
-                    </div>
-                </div>
-                <div class="text-center py-4">
-                    <a class="h6 text-decoration-none text-truncate" href=""><?= $product['name'] ?></a>
-                    <div class="d-flex align-items-center justify-content-center mt-2">
-                        <h5>$<?= $product['price'] - $product['price'] * $product['discount'] ?></h5>
-                        <h6 class="text-muted ml-2"><del>$<?= $product['price'] ?></del></h6>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center mb-1">
-                    <?php
-                    for ($x = 0; $x < floor($product['rating']); $x++) {
-                        ?>
-                        <small class="fa fa-star text-primary mr-1"></small>
-
-                <?php }
-                    if ($product['rating'] - floor($product['rating']) == 0.5) {
-                        ?>
-                     <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                <?php }
-                    ?>
-                        <small>(<?= $product['rating_count'] ?>)</small>
-                    </div>
-                </div>
-         </div>
-    </div>
-    <?php
+        <?php
+        foreach ($products as $product) {
+            if (!$product['is_featured']) {
+                continue;
+            }
+            echo display_product($product);
         }
-    }
-    ?>
+        ?>
+    </div>
 </div>
 <!-- Products End -->
 
@@ -234,50 +201,14 @@ $categories = getCategories();
         <span class="bg-secondary pr-3">Recent Products</span>
     </h2>
     <div class="row px-xl-5">
-    <?php
-    foreach ($products as $product) {
-        if ($product['is_recent']) {
-            ?>
-        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <div class="product-item bg-light mb-4">
-                <div class="product-img position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="<?= $product['image'] ?>" alt="" />
-                    <div class="product-action">
-                        <a class="btn btn-outline-dark btn-square" href="products.php?product_id=<?= $product['id'] ?>"><i
-                                class="fa fa-shopping-cart"></i></a>
-                        <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
-                        <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
-                        <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-search"></i></a>
-                    </div>
-                </div>
-                <div class="text-center py-4">
-                    <a class="h6 text-decoration-none text-truncate" href=""><?= $product['name'] ?></a>
-                    <div class="d-flex align-items-center justify-content-center mt-2">
-                        <h5>$<?= $product['price'] - $product['price'] * $product['discount'] ?></h5>
-                        <h6 class="text-muted ml-2"><del>$<?= $product['price'] ?></del></h6>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-center mb-1">
-                    <?php
-                    for ($x = 0; $x < floor($product['rating']); $x++) {
-                        ?>
-                        <small class="fa fa-star text-primary mr-1"></small>
-
-                <?php }
-                    if ($product['rating'] - floor($product['rating']) == 0.5) {
-                        ?>
-                     <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                <?php }
-                    ?>
-                        <small>(<?= $product['rating_count'] ?>)</small>
-                    </div>
-                </div>
-         </div>
-    </div>
-    <?php
+        <?php
+        foreach ($products as $product) {
+            if (!$product['is_recent']) {
+                continue;
+            }
+            echo display_product($product);
         }
-    }
-    ?>
-         
+        ?>
     </div>
 </div>
 <!-- Products End -->
